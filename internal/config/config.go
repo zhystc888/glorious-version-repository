@@ -11,11 +11,12 @@ type Config struct {
 
 func Load() *Config {
 	var configFile string
-	flag.StringVar(&configFile, "c", "config/config.yaml", "config file")
+	flag.StringVar(&configFile, "c", "config.yaml", "config file")
 	flag.Parse()
 
 	v := viper.New()
-	v.SetConfigFile(configFile)
+	v.SetConfigName(configFile)
+	v.AddConfigPath("./config")
 	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}
